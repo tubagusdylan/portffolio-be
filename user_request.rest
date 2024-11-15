@@ -1,0 +1,54 @@
+### get user
+GET http://localhost:5000/api/v1/admin/users
+# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJ1c2VyLWcwMmI3MGQzMGciLCJwcm9maWxlTmFtZSI6IlR1YmFndXMgRHlsYW4gUmFjaG1hdCIsInJvbGVOYW1lIjoic3VwZXJfYWRtaW4iLCJpYXQiOjE3MTc0ODMxNzYsImV4cCI6MTcxNzQ4MzE5MX0.NsFk5LfBte37wZMlJE3USYskC4uCc_ThULo7vrnZSRQ
+
+### add user
+POST http://localhost:5000/api/v1/admin/users
+Authorization: Bearer
+Content-Type: application/json
+
+{
+    "username": "admin2",
+    "password": "admin2",
+    "confirmPassword": "admin2",
+    "profileName": "Admin biasa",
+    "isAdmin": 0
+}
+
+### update password
+PUT http://localhost:5000/api/v1/cms-admin/users
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJ1c2VyLWcwMmI3MGQzMGciLCJ1c2VyTmFtZSI6ImFkbWluX3RlYmUiLCJyb2xlTmFtZSI6InN1cGVyX2FkbWluIiwiaWF0IjoxNzE3Mzk3NjkxLCJleHAiOjE3MTczOTc3MDZ9._KUw0FoyAAx4AyYLmV9RZpuM4oOsi2DNBN1jefn3VRc
+Content-Type: application/json
+
+{
+    "username": "admin_tebe",
+    "password": "admin_test",
+    "newPassword": "admin_tebe",
+    "confirmNewPassword": "admin_tebe"
+}
+
+### login
+POST http://localhost:5000/api/v1/admin/users/login
+Content-Type: application/json
+
+{
+    "username": "admin",
+    "password": "admin"
+}
+
+### Get detail user
+GET http://localhost:5000/api/v1/admin/users/Cx2kVneZq0_YPHKwR6
+# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJ1c2VyLWcwMmI3MGQzMGciLCJwcm9maWxlTmFtZSI6IlR1YmFndXMgRHlsYW4gUmFjaG1hdCIsInJvbGVOYW1lIjoic3VwZXJfYWRtaW4iLCJpYXQiOjE3MTc0ODg3NDUsImV4cCI6MTcxNzQ4ODc2MH0.ASphaTBeRRp82-M9pZmbuuWxT9UYio0nYJ52iLx_kQg
+
+
+### get refresh token
+GET http://localhost:5000/api/v1/cms-admin/users/token
+
+
+### Delete User
+DELETE http://localhost:5000/api/v1/cms-admin/users/user-02ce8487i6
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJ1c2VyLWcwMmI3MGQzMGciLCJwcm9maWxlTmFtZSI6IlR1YmFndXMgRHlsYW4gUmFjaG1hdCIsInJvbGVOYW1lIjoic3VwZXJfYWRtaW4iLCJpYXQiOjE3MTc0ODMyMDYsImV4cCI6MTcxNzQ4MzIyMX0.EA8JOmOtqyQI4n146X1Jd6-rXbOarZVE3qEwVMzw6Lw
+
+
+### logout
+DELETE http://localhost:5000/api/v1/cms-admin/users/logout

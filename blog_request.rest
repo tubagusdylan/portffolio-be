@@ -1,0 +1,57 @@
+### login
+POST http://localhost:5000/api/v1/cms-admin/users/login
+Content-Type: application/json
+
+{
+    "username": "admin_tebe",
+    "password": "admin_tebe"
+}
+
+### get refresh token
+GET http://localhost:5000/api/v1/cms-admin/users/token
+
+### get blogs
+GET http://localhost:5000/api/v1/cms-admin/blogs?page=1&size=10
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJ1c2VyLWcwMmI3MGQzMGciLCJwcm9maWxlTmFtZSI6IlR1YmFndXMgRHlsYW4gUmFjaG1hdCIsInJvbGVOYW1lIjoic3VwZXJfYWRtaW4iLCJpYXQiOjE3MTc0ODMyOTAsImV4cCI6MTcxNzQ4MzMwNX0.Umq_whLDswbCL-GfBNTAoHTrNo2-GZYtSN51A3A5XhY
+
+### add blog
+POST http://localhost:5000/api/v1/cms-admin/blogs
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJ1c2VyLWcwMmI3MGQzMGciLCJ1c2VyTmFtZSI6ImFkbWluX3RlYmUiLCJyb2xlTmFtZSI6InN1cGVyX2FkbWluIiwiaWF0IjoxNzE3NDA1MzMxLCJleHAiOjE3MTc0MDUzNDZ9._4GOWM3T_HrXYXOhaY3dHqqKOAlkV2a8JRNvXq49RFo
+Content-Type: application/json
+
+{
+    "userId": "user-g02b70d30g",
+    "title": "Blog 20",
+    "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur id arcu ac tellus scelerisque hendrerit ut vitae nulla. Fusce vel dui nunc. Etiam dapibus aliquam molestie. Praesent sed sagittis urna, quis ultricies nisi. Cras feugiat eros purus, sit amet interdum eros mollis quis. Pellentesque tempor elit lacus, ac tempor dolor euismod sodales. Donec bibendum, sem eget sagittis tincidunt, erat tortor ornare diam, sed semper felis nisi sit amet diam. Aenean et nulla in erat feugiat bibendum gravida non tortor. Mauris eleifend euismod aliquam.",
+    "summary": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    "category": "IoT",
+    "createdBy": "Tubagus Dylan R."
+}
+
+### Get detail blog
+GET http://localhost:5000/api/v1/cms-admin/blogs/blog-08c1346852f
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJ1c2VyLWcwMmI3MGQzMGciLCJwcm9maWxlTmFtZSI6IlR1YmFndXMgRHlsYW4gUmFjaG1hdCIsInJvbGVOYW1lIjoic3VwZXJfYWRtaW4iLCJpYXQiOjE3MTc0ODQxOTcsImV4cCI6MTcxNzQ4NDIxMn0.HVz842Jsmr1yDBOCwooa-TliVvZUcs3glF5pcPTYoHo
+
+### Update blog
+PUT http://localhost:5000/api/v1/cms-admin/blogs
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJ1c2VyLWcwMmI3MGQzMGciLCJwcm9maWxlTmFtZSI6IlR1YmFndXMgRHlsYW4gUmFjaG1hdCIsInJvbGVOYW1lIjoic3VwZXJfYWRtaW4iLCJpYXQiOjE3MTc0ODY4NzIsImV4cCI6MTcxNzQ4Njg4N30.-tCmkJD0Qvgq4gTue_jhw03ZbmsLhwbt4YLyYUZq0iY
+Content-Type: application/json
+
+{   
+    "blogId": "blog-08c1346852f",
+    "userId": "user-g02b70d30g",
+    "title": "Blog 9",
+    "body": "Lorem ipsum dolor sit amet",
+    "summary": "Lorem",
+    "category": "Programming"
+}
+
+
+### Delete blog
+DELETE http://localhost:5000/api/v1/cms-admin/blogs/blog-08c1346852f
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJ1c2VyLWcwMmI3MGQzMGciLCJwcm9maWxlTmFtZSI6IlR1YmFndXMgRHlsYW4gUmFjaG1hdCIsInJvbGVOYW1lIjoic3VwZXJfYWRtaW4iLCJpYXQiOjE3MTc0ODc5OTEsImV4cCI6MTcxNzQ4ODAwNn0.7D9bqwJjbtig4dAregHnOiLBdE2aQFX6PLzrqU2RVIY
+Content-Type: application/json
+
+{
+    "userId": "user-g02b70d30g"
+}
