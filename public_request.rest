@@ -1,5 +1,0 @@
-### get public blog
-GET http://localhost:5000/api/v1/blogs?page=1&size=10
-
-### Get detail public blog
-GET http://localhost:5000/api/v1/blogs/blog-ef24af572d2
