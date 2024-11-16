@@ -1,10 +1,6 @@
-const multer = require("multer");
 const { S3Client, PutObjectCommand, GetObjectCommand, DeleteObjectCommand } = require("@aws-sdk/client-s3");
 const { getSignedUrl } = require("@aws-sdk/s3-request-presigner");
 const wrapper = require("../queryWrapper");
-
-const storage = multer.memoryStorage();
-const upload = multer({ storage: storage });
 
 const bucketName = process.env.BUCKET_NAME;
 const bucketRegion = process.env.BUCKET_REGION;
@@ -29,13 +25,12 @@ const s3 = new S3Client({
 */
 
 const addObjectStream = async (params) => {
-  const newParams = {
-    ...params,
-    Bucket: bucketName,
-  };
-
-  const command = new PutObjectCommand(newParams);
   try {
+    const newParams = {
+      ...params,
+      Bucket: bucketName,
+    };
+    const command = new PutObjectCommand(newParams);
     await s3.send(command);
     return wrapper.data("Adding object success");
   } catch (error) {
@@ -44,27 +39,26 @@ const addObjectStream = async (params) => {
 };
 
 const getObjectStream = async (params) => {
-  const newParams = {
-    ...params,
-    Bucket: bucketName,
-  };
-  const command = new GetObjectCommand(newParams);
   try {
-    const url = await getSignedUrl(s3, command, { expiresIn: 60 });
-    return wrapper.data({ url: url });
+    const newParams = {
+      ...params,
+      Bucket: bucketName,
+    };
+    const command = new GetObjectCommand(newParams);
+    const url = await getSignedUrl(s3, command, { expiresIn: 3600 });
+    return wrapper.data(url);
   } catch (error) {
     return wrapper.error("Error getting object");
   }
 };
 
 const deleteObjectStream = async (params) => {
-  const newParams = {
-    ...params,
-    Bucket: bucketName,
-  };
-
-  const command = new DeleteObjectCommand(newParams);
   try {
+    const newParams = {
+      ...params,
+      Bucket: bucketName,
+    };
+    const command = new DeleteObjectCommand(newParams);
     await s3.send(command);
     return wrapper.data("Deleting object success");
   } catch (error) {
@@ -73,7 +67,6 @@ const deleteObjectStream = async (params) => {
 };
 
 module.exports = {
-  upload,
   addObjectStream,
   getObjectStream,
   deleteObjectStream,
