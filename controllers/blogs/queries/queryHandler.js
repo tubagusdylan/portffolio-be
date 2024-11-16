@@ -7,7 +7,7 @@ const getDetailBlogHandler = async (req, res) => {
   if (blog.err) {
     return response.notFound(res, blog.message);
   }
-  return response.success(res, { message: "Success get blogs data", data: blog.data });
+  return response.success(res, { message: "Success get blog data", data: blog.data });
 };
 
 const getBlogsHandler = async (req, res) => {

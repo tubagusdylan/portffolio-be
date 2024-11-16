@@ -9,7 +9,7 @@ const addBlogHandler = async (req, res) => {
 
   const isUserExist = await userQuery.findOne(writer_id);
   if (isUserExist.err) {
-    return response.badRequest(res, "User not found");
+    return response.notFound(res, "User not found");
   }
 
   const bodyParams = {
@@ -37,7 +37,7 @@ const updateBlogHandler = async (req, res) => {
 
   const isBlogExist = await query.findOne(id);
   if (isBlogExist.err) {
-    return response.badRequest(res, "Blog not found");
+    return response.notFound(res, "Blog not found");
   }
 
   const result = await command.updateOne(req.body, id);
@@ -55,7 +55,7 @@ const deleteBlogHandler = async (req, res) => {
 
   const isBlogExist = await query.findOne(id);
   if (isBlogExist.err) {
-    return response.badRequest(res, "Blog not found");
+    return response.notFound(res, "Blog not found");
   }
 
   const result = await command.deleteOne(id);

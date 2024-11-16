@@ -32,6 +32,8 @@ CREATE TABLE `my_projects` (
   `user_id` varchar(36) REFERENCES users(id) ON DELETE CASCADE,
   `title` varchar(64),
   `tech_stack` varchar(64),
+  'github_url' varchar(512),
+  'web_url' varchar(512),
   `created_at` timestamp DEFAULT NOW()
 );
 
