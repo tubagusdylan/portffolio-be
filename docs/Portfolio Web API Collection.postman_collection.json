@@ -1,0 +1,1112 @@
+{
+	"info": {
+		"_postman_id": "60549cbe-b724-46b8-bbb6-515d79b33e0e",
+		"name": "Portfolio Web API Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28185562"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseJson = pm.response.json();\r",
+									"\r",
+									"pm.collectionVariables.set('ACCESS_TOKEN', responseJson.data.token);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"admin\",\r\n    \"password\": \"admin\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{LOCAL}}/api/v1/admin/users/login",
+							"host": [
+								"{{LOCAL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"admin",
+								"users",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "{{REFRESH_TOKEN}}",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{LOCAL}}/api/v1/admin/users/logout",
+							"host": [
+								"{{LOCAL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"admin",
+								"users",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Refresh Token",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseJson = pm.response.json();\r",
+									"\r",
+									"pm.collectionVariables.set('ACCESS_TOKEN', responseJson.data.token);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{LOCAL}}/api/v1/admin/users/token",
+							"host": [
+								"{{LOCAL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"admin",
+								"users",
+								"token"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Add User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseJson = pm.response.json();\r",
+									"\r",
+									"pm.collectionVariables.set(\"user_id\", responseJson.data.id);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{ACCESS_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"dylan2\",\r\n    \"password\": \"dylan2\",\r\n    \"profileName\": \"Dylan Rachmat\",\r\n    \"isAdmin\": 0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{LOCAL}}/api/v1/admin/users",
+							"host": [
+								"{{LOCAL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"admin",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{ACCESS_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"dylan-new\",\r\n    \"password\": \"dylan-new\",\r\n    \"profileName\": \"Dylan Rachmat\",\r\n    \"isAdmin\": 0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{LOCAL}}/api/v1/admin/users/{{user_id}}",
+							"host": [
+								"{{LOCAL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"admin",
+								"users",
+								"{{user_id}}"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Users",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{ACCESS_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{LOCAL}}/api/v1/admin/users",
+							"host": [
+								"{{LOCAL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"admin",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get One User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{ACCESS_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{LOCAL}}/api/v1/admin/users/{{user_id}}",
+							"host": [
+								"{{LOCAL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"admin",
+								"users",
+								"{{user_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{ACCESS_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{LOCAL}}/api/v1/admin/users/{{user_id}}",
+							"host": [
+								"{{LOCAL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"admin",
+								"users",
+								"{{user_id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Blogs",
+			"item": [
+				{
+					"name": "Add Blog",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseJson = pm.response.json();\r",
+									"\r",
+									"pm.collectionVariables.set(\"blog_id\", responseJson.data.id);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{ACCESS_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"writer_id\": \"user-3hTCx2kVneZq0_YPHKwR6\",\r\n    \"title\": \"Test Judul 5\",\r\n    \"body\": \"Ini body 5\",\r\n    \"category\": \"Technology\",\r\n    \"tags\": \"arduino,esp32\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{LOCAL}}/api/v1/admin/blogs",
+							"host": [
+								"{{LOCAL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"admin",
+								"blogs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Blog",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{ACCESS_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Title new\",\r\n    \"body\": \"Ini body new\",\r\n    \"category\": \"Category new\",\r\n    \"tags\": \"tagsnew\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{LOCAL}}/api/v1/admin/blogs/{{blog_id}}",
+							"host": [
+								"{{LOCAL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"admin",
+								"blogs",
+								"{{blog_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Blog",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{ACCESS_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{LOCAL}}/api/v1/admin/blogs/{{blog_id}}",
+							"host": [
+								"{{LOCAL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"admin",
+								"blogs",
+								"{{blog_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Blogs",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{ACCESS_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{LOCAL}}/api/v1/admin/blogs?page=1&limit=10&category=finance",
+							"host": [
+								"{{LOCAL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"admin",
+								"blogs"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "title",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "category",
+									"value": "finance"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Public Blogs",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{LOCAL}}/api/v1/public/blogs?page=1&limit=10&title=5",
+							"host": [
+								"{{LOCAL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"public",
+								"blogs"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "category",
+									"value": "technology",
+									"disabled": true
+								},
+								{
+									"key": "title",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get One Blog",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{ACCESS_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{LOCAL}}/api/v1/admin/blogs/{{blog_id}}",
+							"host": [
+								"{{LOCAL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"admin",
+								"blogs",
+								"{{blog_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Public One Blog",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{LOCAL}}/api/v1/public/blogs/{{blog_id}}",
+							"host": [
+								"{{LOCAL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"public",
+								"blogs",
+								"{{blog_id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "My Projects",
+			"item": [
+				{
+					"name": "Add Project",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseJson = pm.response.json();\r",
+									"\r",
+									"pm.collectionVariables.set(\"project_id\", responseJson.data.id);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{ACCESS_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user_id\": \"user-3hTCx2kVneZq0_YPHKwR6\",\r\n    \"title\": \"Project title\",\r\n    \"tech_stack\": \"React, Tailwind\",\r\n    \"github_url\": \"https://test1\",\r\n    \"web_url\": \"https://test2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{LOCAL}}/api/v1/admin/my-projects",
+							"host": [
+								"{{LOCAL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"admin",
+								"my-projects"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Project",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{ACCESS_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Project title new\",\r\n    \"tech_stack\": \"React, Tailwind, new\",\r\n    \"github_url\": \"https://test1new\",\r\n    \"web_url\": \"https://test2new\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{LOCAL}}/api/v1/admin/my-projects/{{project_id}}",
+							"host": [
+								"{{LOCAL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"admin",
+								"my-projects",
+								"{{project_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Project",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{ACCESS_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{LOCAL}}/api/v1/admin/my-projects/{{project_id}}",
+							"host": [
+								"{{LOCAL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"admin",
+								"my-projects",
+								"{{project_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get One Project",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{ACCESS_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{LOCAL}}/api/v1/admin/my-projects/{{project_id}}",
+							"host": [
+								"{{LOCAL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"admin",
+								"my-projects",
+								"{{project_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get One Public Project",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{LOCAL}}/api/v1/public/my-projects/{{project_id}}",
+							"host": [
+								"{{LOCAL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"public",
+								"my-projects",
+								"{{project_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Projects",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{ACCESS_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{LOCAL}}/api/v1/admin/my-projects?page=1&limit=10",
+							"host": [
+								"{{LOCAL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"admin",
+								"my-projects"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "title",
+									"value": "new",
+									"disabled": true
+								},
+								{
+									"key": "tech_stack",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Public Projects",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{LOCAL}}/api/v1/public/my-projects?page=1&limit=10&title=new",
+							"host": [
+								"{{LOCAL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"public",
+								"my-projects"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "title",
+									"value": "new"
+								},
+								{
+									"key": "tech_stack",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Testimonies",
+			"item": [
+				{
+					"name": "Add Testimonies (Public)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseJson = pm.response.json();\r",
+									"\r",
+									"pm.collectionVariables.set(\"testimonie_id\", responseJson.data.id);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"client_name\": \"Naruto\",\r\n    \"description\": \"Murah meriah, service bagus\",\r\n    \"rating\": 5\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{LOCAL}}/api/v1/public/testimonies",
+							"host": [
+								"{{LOCAL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"public",
+								"testimonies"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Testimonie (Admin)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{ACCESS_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{LOCAL}}/api/v1/admin/testimonies/{{testimonie_id}}",
+							"host": [
+								"{{LOCAL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"admin",
+								"testimonies",
+								"{{testimonie_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Testimonies (Public)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{LOCAL}}/api/v1/public/testimonies?page=1&limit=10",
+							"host": [
+								"{{LOCAL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"public",
+								"testimonies"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Testimonies (Admin)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{ACCESS_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{LOCAL}}/api/v1/admin/testimonies?page=1&limit=10",
+							"host": [
+								"{{LOCAL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"admin",
+								"testimonies"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get One Testimonie (Admin)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{ACCESS_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{LOCAL}}/api/v1/admin/testimonies/{{testimonie_id}}",
+							"host": [
+								"{{LOCAL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"admin",
+								"testimonies",
+								"{{testimonie_id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "LOCAL",
+			"value": "http://localhost:5000",
+			"type": "string"
+		},
+		{
+			"key": "STAGING",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "ACCESS_TOKEN",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "REFRESH_TOKEN",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "user_id",
+			"value": "user-daxbfMqbIxvgRqmoq29-4",
+			"type": "default"
+		},
+		{
+			"key": "blog_id",
+			"value": "6d376b35-a31e-11ef-8b6c-1096c106d82b",
+			"type": "string"
+		},
+		{
+			"key": "project_id",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "testimonie_id",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
