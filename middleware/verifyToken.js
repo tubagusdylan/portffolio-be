@@ -13,8 +13,9 @@ const verifyToken = (req, res, next) => {
       return response.forbidden(res, "Token expired");
     }
     req.username = decoded.username;
+    req.is_admin = decoded.isAdmin;
     next();
   });
 };
 
-module.exports = { verifyToken };
+module.exports = verifyToken;
