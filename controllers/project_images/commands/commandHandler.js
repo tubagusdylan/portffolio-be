@@ -1,22 +1,22 @@
 const response = require("../../../helper/responseWrapper");
 const query = require("../queries/query");
-const blogQuery = require("../../blogs/queries/query");
+const projectQuery = require("../../my_projects/queries/query");
 const command = require("./command");
 const { nanoid } = require("nanoid");
 const oss = require("../../../helper/aws-s3/oss");
 
 const addImageHandler = async (req, res) => {
-  const { blog_id } = req.body;
+  const { project_id } = req.body;
   const file = req.file;
 
-  const isBlogExist = await blogQuery.findOne(blog_id);
-  if (isBlogExist.err) {
-    return response.notFound(res, "Blog not found");
+  const isProjectExist = await projectQuery.findOne(project_id);
+  if (isProjectExist.err) {
+    return response.notFound(res, "Project not found");
   }
 
   const queryParam = {
     ...req.body,
-    id: `img-blog-${nanoid(20)}`,
+    id: `img-project-${nanoid(20)}`,
     name: `${req.body.name}-${nanoid(16)}`,
   };
 
