@@ -1043,6 +1043,401 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Blog Images",
+			"item": [
+				{
+					"name": "Add Image",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseJson = pm.response.json();\r",
+									"\r",
+									"pm.collectionVariables.set(\"img_blog_id\", responseJson.data.id);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{ACCESS_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "blog_id",
+									"value": "blog-0MIzkH5koWRbf3wVMAWp",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "Image3",
+									"type": "text"
+								},
+								{
+									"key": "alt",
+									"value": "inigambar3",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/tbdyl/OneDrive/Gambar/beautiful-fantasy-wallpaper-ultra-hd-wallpaper-4k-sr10012418-1706506236698-cover.webp"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{LOCAL}}/api/v1/admin/blog-images",
+							"host": [
+								"{{LOCAL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"admin",
+								"blog-images"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Image",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{ACCESS_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{LOCAL}}/api/v1/admin/blog-images/{{img_blog_id}}",
+							"host": [
+								"{{LOCAL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"admin",
+								"blog-images",
+								"{{img_blog_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Images",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{ACCESS_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{LOCAL}}/api/v1/admin/blog-images?blog_id=blog-0MIzkH5koWRbf3wVMAWp",
+							"host": [
+								"{{LOCAL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"admin",
+								"blog-images"
+							],
+							"query": [
+								{
+									"key": "blog_id",
+									"value": "blog-0MIzkH5koWRbf3wVMAWp"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get One Image",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{ACCESS_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{LOCAL}}/api/v1/admin/blog-images/{{img_blog_id}}",
+							"host": [
+								"{{LOCAL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"admin",
+								"blog-images",
+								"{{img_blog_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Images (Public)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{LOCAL}}/api/v1/public/blog-images?blog_id=blog-0MIzkH5koWRbf3wVMAWp",
+							"host": [
+								"{{LOCAL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"public",
+								"blog-images"
+							],
+							"query": [
+								{
+									"key": "blog_id",
+									"value": "blog-0MIzkH5koWRbf3wVMAWp"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Project Images",
+			"item": [
+				{
+					"name": "Add Image",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseJson = pm.response.json();\r",
+									"pm.collectionVariables.set(\"img_project_id\", responseJson.data.id);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{ACCESS_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "project_id",
+									"value": "proj-o88XvvqFykaeNkKOK7DO",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "Image1",
+									"type": "text"
+								},
+								{
+									"key": "alt",
+									"value": "image1",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/tbdyl/OneDrive/Gambar/pexels-thatguycraig000-1563356.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{LOCAL}}/api/v1/admin/project-images",
+							"host": [
+								"{{LOCAL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"admin",
+								"project-images"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete image",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{ACCESS_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{LOCAL}}/api/v1/admin/project-images/{{img_project_id}}",
+							"host": [
+								"{{LOCAL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"admin",
+								"project-images",
+								"{{img_project_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Images",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{ACCESS_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{LOCAL}}/api/v1/admin/project-images?project_id=proj-o88XvvqFykaeNkKOK7DO",
+							"host": [
+								"{{LOCAL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"admin",
+								"project-images"
+							],
+							"query": [
+								{
+									"key": "project_id",
+									"value": "proj-o88XvvqFykaeNkKOK7DO"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get One Image",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{ACCESS_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{LOCAL}}/api/v1/admin/project-images/{{img_project_id}}",
+							"host": [
+								"{{LOCAL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"admin",
+								"project-images",
+								"{{img_project_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Images (Public)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{LOCAL}}/api/v1/public/project-images?project_id=proj-o88XvvqFykaeNkKOK7DO",
+							"host": [
+								"{{LOCAL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"public",
+								"project-images"
+							],
+							"query": [
+								{
+									"key": "project_id",
+									"value": "proj-o88XvvqFykaeNkKOK7DO"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	],
 	"event": [
@@ -1105,6 +1500,16 @@
 		},
 		{
 			"key": "testimonie_id",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "img_blog_id",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "img_project_id",
 			"value": "",
 			"type": "string"
 		}
