@@ -1,11 +1,12 @@
-const { S3Client, PutObjectCommand, GetObjectCommand, DeleteObjectCommand } = require("@aws-sdk/client-s3");
-const { getSignedUrl } = require("@aws-sdk/s3-request-presigner");
+const { S3Client, PutObjectCommand, DeleteObjectCommand } = require("@aws-sdk/client-s3");
 const wrapper = require("../queryWrapper");
+const { CloudFrontClient, CreateInvalidationCommand } = require("@aws-sdk/client-cloudfront");
 
 const bucketName = process.env.BUCKET_NAME;
 const bucketRegion = process.env.BUCKET_REGION;
 const userAccessKey = process.env.USER_ACCESS_KEY;
 const userSecretKey = process.env.USER_SECRET_KEY;
+const cloudFrontDistId = process.env.DISTRIBUTION_ID;
 
 const s3 = new S3Client({
   credentials: {
@@ -15,14 +16,13 @@ const s3 = new S3Client({
   region: bucketRegion,
 });
 
-/* 
-    params= {
-        Bucket: bucketName
-        Key: image-nanoid(),
-        Body: req.file.buffer,
-        ContentType: req.file.mimetype
-    }
-*/
+const cloudfront = new CloudFrontClient({
+  credentials: {
+    accessKeyId: userAccessKey,
+    secretAccessKey: userSecretKey,
+  },
+  region: bucketRegion,
+});
 
 const addObjectStream = async (params) => {
   try {
@@ -40,12 +40,7 @@ const addObjectStream = async (params) => {
 
 const getObjectStream = async (params) => {
   try {
-    const newParams = {
-      ...params,
-      Bucket: bucketName,
-    };
-    const command = new GetObjectCommand(newParams);
-    const url = await getSignedUrl(s3, command, { expiresIn: 3600 });
+    const url = `https://d2w25xmwp9od60.cloudfront.net/${params.Key}`;
     return wrapper.data(url);
   } catch (error) {
     return wrapper.error("Error getting object");
@@ -60,6 +55,21 @@ const deleteObjectStream = async (params) => {
     };
     const command = new DeleteObjectCommand(newParams);
     await s3.send(command);
+
+    const invalidationParams = {
+      DistributionId: cloudFrontDistId,
+      InvalidationBatch: {
+        CallerReference: params.Key,
+        Paths: {
+          Quantity: 1,
+          Items: ["/" + params.Key],
+        },
+      },
+    };
+
+    const invalidationCommand = new CreateInvalidationCommand(invalidationParams);
+    await cloudfront.send(invalidationCommand);
+
     return wrapper.data("Deleting object success");
   } catch (error) {
     return wrapper.error("Error deleting object");
