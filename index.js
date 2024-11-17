@@ -15,6 +15,10 @@ app.use(express.json());
 app.use(cookieParser());
 app.use("/api/v1", router);
 
+app.get("/", (req, res) => {
+  return res.json({ code: 200, success: true, message: "Server sudah berjalan" });
+});
+
 app.listen(PORT, () => {
-  console.log(`Server is running at port ${PORT}`);
+  console.log(`Server is running at http://localhost:${PORT}`);
 });
