@@ -79,7 +79,7 @@ const loginHandler = async (req, res) => {
 
   const isUserExist = await query.findOneByUsername(username);
   if (isUserExist.err) {
-    return response.notFound(res, isUserExist.message);
+    return response.notFound(res, "Wrong username");
   }
 
   const matchPassword = await bcrypt.compare(password, isUserExist.data.password);
