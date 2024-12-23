@@ -8,7 +8,9 @@ const findAll = async () => {
   try {
     const query = `
           SELECT id, username, profile_name, is_admin, created_at
-          FROM ${collection};
+          FROM ${collection}
+          ORDER BY created_at ASC;
+          ;
         `;
     const [rows] = await db.execute(query);
     if (!rows || rows.length === 0) {
