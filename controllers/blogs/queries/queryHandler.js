@@ -19,7 +19,7 @@ const getBlogsHandler = async (req, res) => {
     count = await query.countAllWithFilter(title, category);
   } else {
     blogs = await query.findAll(page, limit);
-    count = await query.countAll();
+    count = await query.countAll(); 
   }
 
   if (blogs.err) {

@@ -31,7 +31,9 @@ const findAll = async (page, limit) => {
     `;
     const values = [limit, offset.toString()];
     const [rows] = await db.execute(query, values);
-    if (!rows || rows === 0) {
+    console.log("testi: ", rows);
+
+    if (!rows || rows.length === 0) {
       return wrapper.error(ErrorNotFound);
     }
     return wrapper.data(rows);
